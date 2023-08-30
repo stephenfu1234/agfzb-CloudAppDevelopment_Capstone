@@ -56,7 +56,22 @@
     </nav>
 
     <!--Add a dealer table here -->
-    
+    {% if dealer_names %}
+        <div class="container">
+            <table>
+                <tr>
+                    <th><Dealer</th>
+                </tr>
+                {% for dealer in dealer_names %}
+                    <tr>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p>No dealerships are available.</p>
+    {% endif %}
     </body>
 
 </html>
