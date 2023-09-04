@@ -30,7 +30,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-header">
-                  <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Review</a>
+                  <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Top Dealerships</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
@@ -56,21 +56,37 @@
     </nav>
 
     <!--Add a dealer table here -->
-    {% if dealer_names %}
+    {% if dealerships %}
         <div class="container">
-            <table>
-                <tr>
-                    <th><Dealer</th>
-                </tr>
-                {% for dealer in dealer_names %}
+            <table class="table" id="table" data-filter-control="true">
+                <thead>
                     <tr>
-                        <td></td>
+                        <th data-field="id">ID</th>
+                        <th data-field="Dealer name">Dealer Name</th>
+                        <th data-field="City">City</th>
+                        <th data-field="Address">Address</th>
+                        <th data-field="Zip">Zip</th>
+                        <th data-field="State" data-filter-control="select">State</th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for dealer in dealerships %}
+                        <tr>
+                            <td>{{dealer.id}}</td>
+                            <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+                            <td>{{dealer.city}}</td>
+                            <td>{{dealer.address}}</td>
+                            <td>{{dealer.zip}}</td>
+                            <td>{{dealer.st}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     {% else %}
-        <p>No dealerships are available.</p>
+        <div class="container">
+            <p>No dealerships are available.</p>
+        </div>
     {% endif %}
     </body>
 

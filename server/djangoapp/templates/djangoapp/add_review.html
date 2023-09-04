@@ -11,6 +11,77 @@
 
 </head>
     <body>
-    <!--Add review form here -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                      <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Top Dealerships</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Username" name="username" >
+                                <input type="password" class="form-control" placeholder="Username" name="psw" >
+                                <button class="btn btn-primary" type="submit">Login</button>
+                                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                            </div>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    
+        <div class="container-fluid">
+            <h3>Add a review about <b>{{dealer.full_name}}</b></h3>
+            <form action="{% url 'djangoapp:add_review' dealer.id%}" method="post">
+                <div class="form-group">
+
+                    <div class="mb-3">
+                        <label for="content"><b>Enter your review: </b></label>
+                        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="purchase_checkbox" id="purchase_checkbox">
+                        <label class="form-check-label" for="purchase_checkbox">
+                            Has purchased?
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="car"><b>Select your car:</b></label>
+                        <select name="car" id="car" class="form-select" required>
+                            {% for car in cars %}
+                            <option selected value={{car.id}}>{{car.make.name}}-{{car.name}}-{{ car.year|date:"Y" }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="purchase_date"><b>Select Your Purchase Date: </b></label>
+                        <input class="date-own form-control" style="width: 300px;" type="text" name="purchase_date" id="purchase_date">
+                    </div>
+
+                </div>
+                {% csrf_token %}
+                <div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+
     </body>
 </html>
