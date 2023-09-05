@@ -9,6 +9,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
+    <script type="text/javascript">
+        $('.date-own').datepicker({
+           format: 'mm/dd/yyyy'
+         });
+   </script>
+
 </head>
     <body>
         <nav class="navbar navbar-light bg-light">
@@ -46,13 +52,13 @@
 
                     <div class="mb-3">
                         <label for="review"><b>Enter your review: </b></label>
-                        <textarea class="form-control" id="review_comments" name="review_comments" rows="3" required></textarea>
+                        <textarea class="form-control" id="review_comments" name="review_comments" rows="2" required></textarea>
                     </div>
 
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="purchase_checkbox" id="purchase_checkbox">
                         <label class="form-check-label" for="purchase_checkbox">
-                            Has purchased?
+                            Has purchased the car from {{dealer.full_name}}?  <label> <span style="color: gray; font-weight: 300">(select purchased car information below if checked)</span>
                         </label>
                     </div>
 
@@ -67,7 +73,7 @@
 
                     <div class="mb-3">
                         <label for="purchase_date"><b>Select Your Purchase Date: </b></label>
-                        <input class="date-own form-control" style="width: 300px;" type="text" name="purchase_date" id="purchase_date">
+                        <input class="date-own form-control" style="width: 250px;" type="text" name="purchase_date" id="purchase_date">
                     </div>
 
                 </div>
