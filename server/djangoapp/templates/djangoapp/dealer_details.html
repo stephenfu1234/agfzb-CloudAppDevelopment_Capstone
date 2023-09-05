@@ -40,7 +40,7 @@
     </br>
 
     <div>
-        {{dealer.full_name}} 
+        <h2>{{dealer.full_name}}</h2>
     </div>
 
     {% if reviews %}
@@ -58,8 +58,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{review.car_make}} {{review.car_model}}</h5>
                     
-                    <h6 class="card-subtitle">{{review.purchase_date}}</h5>
+                    <h6 class="card-subtitle">Purchased in {{review.purchase_date}}</h5>
                     <p class="card-text">{{review.review}}</p>
+                    <p class="card-text">Submitted by <b>{{review.name}}</b></p>
                 </div>
             </div>
         {% endfor %}

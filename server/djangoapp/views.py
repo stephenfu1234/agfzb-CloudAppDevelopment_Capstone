@@ -132,7 +132,7 @@ def add_review(request, dealer_id):
             review["dealership"] = dealer_id
             review["review"] = request.POST['review_comments']
             review["id"] = random.randint(0,9999)
-            review["name"] = username
+            review["name"] = username.first_name + " " + username.last_name
             review["purchase"] = False
             if 'purchase_checkbox' in request.POST:
                 if request.POST['purchase_checkbox'] == 'on':
@@ -140,8 +140,7 @@ def add_review(request, dealer_id):
             review["purchase_date"] = request.POST['purchase_date']
             review["car_make"] = car.make.name
             review["car_model"] = car.name
-            review["car_year"] = car.year
-
+            review["car_year"] = int(car.year.strftime("%Y"))
             post_review_url = "https://stephenfu1-5000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
             json_payload = {}
             json_payload["review"] = review
