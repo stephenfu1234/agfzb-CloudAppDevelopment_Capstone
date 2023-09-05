@@ -9,6 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+import random
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -78,7 +79,7 @@ def registration_request(request):
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://stephenfu1-3000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        url = "https://stephenfu1-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         
         dealerships = get_dealers_from_cf(url)
         
@@ -92,11 +93,11 @@ def get_dealer_details(request, dealer_id):
     if request.method == "GET":
         context = {}
 
-        dealer_url = "https://stephenfu1-3000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealer_url = "https://stephenfu1-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         dealer = get_dealer_by_id_from_cf(dealer_url, id=dealer_id)
         context["dealer"] = dealer
 
-        reviews_url = "https://stephenfu1-5000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
+        reviews_url = "https://stephenfu1-5000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
         reviews = get_dealer_reviews_from_cf(reviews_url, dealer_id)
         
         for review in reviews:
@@ -111,7 +112,7 @@ def add_review(request, dealer_id):
         print("User is authenticated")        
         context = {}
 
-        dealer_url = "https://stephenfu1-3000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealer_url = "https://stephenfu1-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         dealer = get_dealer_by_id_from_cf(dealer_url, id=dealer_id)
         context["dealer"] = dealer
 
@@ -129,7 +130,7 @@ def add_review(request, dealer_id):
             review = {}
             review["time"] = datetime.utcnow().isoformat()
             review["dealership"] = dealer_id
-            review["review"] = request.POST['review']
+            review["review"] = request.POST['review_comments']
             review["id"] = random.randint(0,9999)
             review["name"] = username
             review["purchase"] = False
@@ -141,9 +142,10 @@ def add_review(request, dealer_id):
             review["car_model"] = car.name
             review["car_year"] = car.year
 
-            post_review_url = "https://stephenfu1-5000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
+            post_review_url = "https://stephenfu1-5000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
             json_payload = {}
             json_payload["review"] = review
+            print(json_payload)
             post_request(post_review_url, json_payload)
 
             return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
