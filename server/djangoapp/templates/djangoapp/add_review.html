@@ -8,13 +8,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
-    <script type="text/javascript">
-        $('.date-own').datepicker({
-           format: 'mm/dd/yyyy'
-         });
-   </script>
-
 </head>
     <body>
         <nav class="navbar navbar-light bg-light">
@@ -73,7 +66,9 @@
 
                     <div class="mb-3">
                         <label for="purchase_date"><b>Select Your Purchase Date: </b></label>
-                        <input class="date-own form-control" style="width: 250px;" type="text" name="purchase_date" id="purchase_date">
+                        <div class = "input-group date" data-provide="datepicker-inline" style="width: 250px;"> 
+                            <input class="date-own form-control" type="date" name="purchase_date" id="purchase_date"><br>
+                        </div>
                     </div>
 
                 </div>
@@ -90,4 +85,10 @@
         </div>
 
     </body>
+
+    <script type="text/javascript">
+        $('.date-own').datepicker({
+           format: 'mm/dd/yyyy'
+         });
+   </script>
 </html>
